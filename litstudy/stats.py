@@ -2,9 +2,10 @@ from .common import FuzzyMatcher
 from collections import defaultdict, OrderedDict
 from .types import DocumentSet
 import pandas as pd
+from .sources import utils as U
 
 
-def compute_histogram(docs, fun, keys=None, sort_by_key=False, groups=None, limit=None):
+def compute_histogram(docs, fun, keys=None, sort_by_key=False, groups=None, limit=None, **kwargs):
     if isinstance(groups, list):
         groups = dict((v, v) for v in groups)
 
@@ -177,6 +178,12 @@ def compute_affiliation_histogram(docs: DocumentSet, mapper=None, **kwargs) -> p
         for author in doc.authors or []:
             for aff in author.affiliations or []:
                 if aff.name:
+                    if 'skip_cn' in kwargs and kwargs['skip_cn']:
+                        country = U.uni2country.get(aff.name, 'N/A')
+                        if country == 'CN' or 'china' in aff.name.lower() or 'chinese' in aff.name.lower(): continue
+                        if country == 'HK': continue
+                    if 'skip_us' in kwargs and kwargs['skip_us']:
+                        if country == 'US' or 'USA' in aff.name: continue
                     result.add(mapper.get(aff.name))
 
         return result

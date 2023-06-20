@@ -1,6 +1,7 @@
 from ..types import Document, Author, DocumentSet, DocumentIdentifier, Affiliation
 from ..common import robust_open
 import csv
+from . import utils as U
 
 
 class IEEEDocument(Document):
@@ -19,6 +20,11 @@ class IEEEDocument(Document):
     def authors(self):
         authors = self.entry.get("Authors", "").split("; ")
         affs = self.entry.get("Author Affiliations", "").split("; ")
+        if len(authors) != len(affs):
+            if len(authors) > len(affs):
+                authors = authors[:len(affs)]
+            elif len(affs) > len(authors):
+                affs = affs[:len(authors)]
         assert len(authors) == len(affs)
         return [IEEEAuthor(a, b) for a, b in zip(authors, affs)]
 
@@ -67,7 +73,7 @@ class IEEEDocument(Document):
 
 class IEEEAffiliation(Affiliation):
     def __init__(self, name):
-        self._name = name
+        self._name = U.normalize_university(name)
 
     @property
     def name(self):
