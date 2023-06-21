@@ -347,14 +347,14 @@ def plot_embedding(corpus: Corpus, model: TopicModel, layout=None, ax=None):
     ax.set_yticks([])
 
 
-def plot_topic_clouds(model: TopicModel, *, fig=None, ncols=3, **kwargs):
+def plot_topic_clouds(model: TopicModel, *, fig=None, ncols=3, figheight=15, **kwargs):
     """Plot word clouds for each of the topics from the given topic model."""
     if fig is None:
         plt.clf()
         fig = plt.gcf()
 
-    figheight = kwargs.get('figheight', 15)
     fig.set_figheight(figheight)
+
 
     nrows = math.ceil(model.num_topics / float(ncols))
 
