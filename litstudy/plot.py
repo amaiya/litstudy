@@ -353,6 +353,9 @@ def plot_topic_clouds(model: TopicModel, *, fig=None, ncols=3, **kwargs):
         plt.clf()
         fig = plt.gcf()
 
+    figheight = kwargs.get('figheight', 15)
+    fig.set_figheight(figheight)
+
     nrows = math.ceil(model.num_topics / float(ncols))
 
     for i in range(model.num_topics):
