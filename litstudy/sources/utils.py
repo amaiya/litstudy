@@ -23,7 +23,7 @@ def normalize_university(text, lower=True):
     return university if university is not None else text
 
 
-def aff_is_interesting(aff):
+def aff_is_interesting(aff, skip_country_codes=['CN', 'US', 'HK']):
     aff_name = aff.name if not isinstance(aff, str) else aff
     country = uni2country.get(aff_name, 'N/A')
     if country == 'N/A' and ' and ' in aff_name:
@@ -44,5 +44,8 @@ def aff_is_interesting(aff):
     # so let's just skip it
     if aff_name.lower() == 'university of technology': return False
 
-    return country not in ['CN', 'US', 'HK', 'N/A']
+    skip = ['N/A']
+    skip.extend(skip_country_codes)
+
+    return country not in skip
 
