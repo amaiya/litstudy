@@ -9,6 +9,7 @@ from .ris import load_ris_file
 from .arxiv import search_arxiv
 from .csv import load_csv
 from .scopus_csv import load_scopus_csv
+from .wos import load_wos_csv
 
 __all__ = [
     "fetch_crossref",
@@ -16,6 +17,7 @@ __all__ = [
     "fetch_semanticscholar",
     "load_bibtex",
     "load_csv",
+    "load_wos_csv",
     "load_ieee_csv",
     "load_ris_file",
     "load_scopus_csv",

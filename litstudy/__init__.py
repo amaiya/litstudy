@@ -4,6 +4,7 @@ from .sources import (
     fetch_semanticscholar,
     load_bibtex,
     load_csv,
+    load_wos_csv,
     load_ieee_csv,
     load_ris_file,
     load_scopus_csv,

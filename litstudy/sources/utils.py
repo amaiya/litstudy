@@ -23,3 +23,26 @@ def normalize_university(text, lower=True):
     return university if university is not None else text
 
 
+def aff_is_interesting(aff):
+    aff_name = aff.name if not isinstance(aff, str) else aff
+    country = uni2country.get(aff_name, 'N/A')
+    if country == 'N/A' and ' and ' in aff_name:
+        country = uni2country.get(aff_name.replace(' and ', ' & '), 'N/A')
+    if country == 'N/A' and ' at ' in aff_name:
+        country = uni2country.get(aff_name.replace(' at ', ', '), 'N/A')
+    if country == 'N/A' and ' at ' in aff_name:
+        country = uni2country.get(aff_name.replace(' at ', ' '), 'N/A')
+    if country == 'N/A' and ' at ' in aff_name:
+        country = uni2country.get(aff_name.replace(' at ', ' - '), 'N/A')
+    if country == 'N/A' and ' - ' in aff_name:
+        country = uni2country.get(aff_name.replace(' - ', ', '), 'N/A')
+    if country == 'N/A' and ' - ' in aff_name:
+        country = uni2country.get(aff_name.replace(' - ', ' '), 'N/A')
+    if country == 'N/A' and ' - ' in aff_name:
+        country = uni2country.get(aff_name.replace(' - ', ' at '), 'N/A')
+    # Beijing University of Technology is sometimes listed as University of Technology,
+    # so let's just skip it
+    if aff_name.lower() == 'university of technology': return False
+
+    return country not in ['CN', 'US', 'HK', 'N/A']
+

@@ -182,7 +182,6 @@ def build_corpus(
                             common n-grams.
     :returns: a `Corpus object`.
     """
-
     filters = []
     if custom_bigrams:
         filters.append(lambda w: preprocess_merge_bigrams(w, custom_bigrams))

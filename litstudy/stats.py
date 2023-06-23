@@ -178,12 +178,7 @@ def compute_affiliation_histogram(docs: DocumentSet, mapper=None, **kwargs) -> p
         for author in doc.authors or []:
             for aff in author.affiliations or []:
                 if aff.name:
-                    if 'skip_cn' in kwargs and kwargs['skip_cn']:
-                        country = U.uni2country.get(aff.name, 'N/A')
-                        if country == 'CN' or 'china' in aff.name.lower() or 'chinese' in aff.name.lower(): continue
-                        if country == 'HK': continue
-                    if 'skip_us' in kwargs and kwargs['skip_us']:
-                        if country == 'US' or 'USA' in aff.name: continue
+                    if not U.aff_is_interesting(aff): continue
                     result.add(mapper.get(aff.name))
 
         return result
