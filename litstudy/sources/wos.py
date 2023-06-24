@@ -279,6 +279,7 @@ def load_wos_csv(
         or find_field(
             columns,
             [
+                "author full names",
                 "authors",
                 "author(s)",
                 "author",
