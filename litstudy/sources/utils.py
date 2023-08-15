@@ -23,7 +23,7 @@ def normalize_university(text, lower=True):
     return university if university is not None else text
 
 
-def aff_is_interesting(aff, skip_country_codes=['CN', 'US', 'HK']):
+def aff_is_interesting(aff, skip_country_codes=['CN', 'US', 'HK', 'MO']):
     aff_name = aff.name if not isinstance(aff, str) else aff
     country = uni2country.get(aff_name, 'N/A')
     if country == 'N/A' and ' and ' in aff_name:
